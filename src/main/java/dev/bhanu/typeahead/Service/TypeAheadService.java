@@ -22,7 +22,8 @@ public class TypeAheadService {
     }
 
     public List<String> getTopSuggestions(String prefix) {
-        addSuggestion(new SuggestionDTO(prefix));
+        Thread t = new Thread(() -> addSuggestion(new SuggestionDTO(prefix)));
+        t.start();
         return topSuggestions.getTopSuggestions(prefix).stream().map(Suggestion::getWord).toList();
     }
 
